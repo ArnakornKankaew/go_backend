@@ -3,17 +3,30 @@ package employee
 import (
 	"net/http"
 
+	"backend/api/db"
+
 	"github.com/gin-gonic/gin"
 )
 
-// GET
+type Tbl_employee struct {
+	Emp_id        int
+	Emp_firstname string
+	Emp_lastname  string
+}
+
 func GetEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Employee GET ALL Method!",
+		"message": "Employee GET Method!",
 	})
 }
 
-// GET BY ID
+func GetEmployeeDB(c *gin.Context) {
+	var employees []Tbl_employee
+	db.Db.Find(&employees)
+	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "Employee Read Success", "employees": employees})
+}
+
+// GET By ID
 func GetEmployeeByID(c *gin.Context) {
 	id := c.Param("id")
 	c.JSON(http.StatusOK, gin.H{
@@ -21,21 +34,18 @@ func GetEmployeeByID(c *gin.Context) {
 	})
 }
 
-// POST
 func PostEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Employee POST Method!",
 	})
 }
 
-// PUT
 func PutEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Employee PUT Method!",
 	})
 }
 
-// DELETE
 func DeleteEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Employee DELETE Method!",
