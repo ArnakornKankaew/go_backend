@@ -75,6 +75,28 @@ func PutEmployee(c *gin.Context) {
 	})
 }
 
+// PUT Employee to Database
+func PutEmployeeDB(c *gin.Context) {
+	var json EmployeeBody
+
+	var UpdateEmployees Tbl_employee
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	db.Db.First(&UpdateEmployees, json.Emp_id)
+	UpdateEmployees.Emp_firstname = json.Emp_firstname
+	UpdateEmployees.Emp_lastname = json.Emp_lastname
+	UpdateEmployees.Emp_department = json.Emp_department
+	UpdateEmployees.Emp_salary = json.Emp_salary
+
+	db.Db.Where("emp_id = ? ", json.Emp_id).Save(&UpdateEmployees)
+
+	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "User Updated"})
+
+}
+
 func DeleteEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Employee DELETE Method!",
