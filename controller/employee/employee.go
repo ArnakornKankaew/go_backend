@@ -97,8 +97,15 @@ func PutEmployeeDB(c *gin.Context) {
 
 }
 
+// DeleteEmployee
 func DeleteEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Employee DELETE Method!",
 	})
+}
+func DeleteEmployeeDB(c *gin.Context) {
+	id := c.Param("id")
+	var employees []Tbl_employee
+	db.Db.Delete(&employees, "emp_id = ?", id)
+	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "Delete Profit Success"})
 }
