@@ -7,10 +7,10 @@
       }
     ],
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "main_08.go"
-      }
+    {
+        "src": "/api/(.*)",
+        "dest": "/main_08.go"
+    }
     ],
     "regions": ["sin1"]
 }
