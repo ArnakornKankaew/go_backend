@@ -9,7 +9,7 @@
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "index.js"
+        "dest": "main_08.go"
       }
     ],
     "regions": ["sin1"]
